@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUKOON GAMER</title>
+<style>
+body{background:#140b2a;color:#fff;font-family:sans-serif;margin:0;padding:10px}
+.banner{background:linear-gradient(135deg,#7b4cff,#ff6fb5);border-radius:20px;padding:18px;text-align:center}
+.banner h1{margin:0;font-size:36px;line-height:1}
+.card{background:#271d42;border-radius:16px;padding:14px;margin:12px 0}
+input{width:92%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #8a6fcf;background:#1a1430;color:#fff}
+button{width:100%;padding:12px;border:none;border-radius:25px;font-weight:800;color:#fff;margin:5px 0}
+.yt{background:red}.fb{background:#1877F2}.ig{background:linear-gradient(90deg,#ff7a3d,#ff2e8a)}.pu{background:#7b4cff}
+.menu{display:flex;gap:5px;position:sticky;top:5px;z-index:99;background:#140b2a;padding:5px;border-radius:20px}
+.menu button{font-size:11px;padding:10px 0}
+.box{background:#1a1430;border-radius:12px;padding:10px;margin:8px 0;text-align:center}
+.box iframe{width:100%;height:180px;border-radius:10px}
+.page{display:none}.page.active{display:block}
+</style></head><body>
+
+
+<div class="banner"><h1>SUKOON GAMER</h1><p>Cute Hijabi Horror Gamer</p></div>
+
+
+<div class="menu">
+<button class="pu" onclick="show('home')">🏠 Home</button>
+<button class="pu" onclick="show('videos')">🎞️ Videos</button>
+<button class="pu" onclick="show('live')">🔴 Live</button>
+<button class="pu" onclick="show('clips')">✂️ Clips</button>
+<button class="pu" onclick="show('profile')">👤 Profile</button>
+</div>
+
+
+<div id="home" class="page active">
+<div class="card"><h3>✨ About Me</h3><p>Hey! I'm SUKOON ~ Granny Horror Game kheli!</p></div>
+<div class="card"><a href="https://www.youtube.com/@Sukoon-k3t" target="_blank"><button class="yt">▶ YouTube</button></a>
+<a href="https://www.facebook.com/share/1EnBzqoi9Q/" target="_blank"><button class="fb">Facebook</button></a>
+<a href="https://www.instagram.com/sukoon.138r" target="_blank"><button class="ig">Instagram</button></a></div>
+</div>
+
+
+<div id="videos" class="page">
+<div class="card"><h3>➕ Video Upload</h3>
+<input id="t" placeholder="Video nam - Granny Part 5">
+<input id="l" placeholder="YouTube link paste koro">
+<button class="pu" onclick="add()">✅ Add Video</button></div>
+<div class="card"><h3>🎮 Amar Videos</h3><div id="list"></div></div>
+</div>
+
+
+<div id="live" class="page"><div class="card"><h3>🔴 Live Now</h3><a href="https://www.youtube.com/@Sukoon-k3t" target="_blank"><button class="yt">Live Dekho</button></a></div></div>
+<div id="clips" class="page"><div class="card"><h3>✂️ Clips</h3><p>Videos page e Shorts er link dile ekhane dekhabe.</p></div></div>
+<div id="profile" class="page"><div class="card" style="text-align:center"><div style="font-size:60px">🧕</div><h2>SUKOON GAMER</h2><p>@sukoon.138r • 12.5K Followers</p></div></div>
+
+
+<script>
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+let v=JSON.parse(localStorage.getItem('sv')||'[]');
+function render(){let h='';v.forEach((x,i)=>{let id=(x.l.match(/(?:v=|youtu\.be\/|shorts\/)([A-Za-z0-9_-]{11})/)||[])[1]||'';h+=`<div class="box"><iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe><b>${x.t}</b><br><button onclick="del(${i})" style="background:red;width:80px">Delete</button></div>`});document.getElementById('list').innerHTML=h||'Ekhono video nai, upore add koro';}
+function add(){let t=document.getElementById('t').value;let l=document.getElementById('l').value;if(!t||!l){alert('Nam ar Link dao');return}v.unshift({t:t,l:l});localStorage.setItem('sv',JSON.stringify(v));render();alert('Video add hoye geche!')}
+function del(i){v.splice(i,1);localStorage.setItem('sv',JSON.stringify(v));render();}
+render();
+</script></body></html>
